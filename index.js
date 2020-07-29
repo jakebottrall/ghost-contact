@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const contact = require("./routes/contact");
-app.use("/api/contact", contact);
+app.use("/ghost-contact", contact);
 
 // error handler
 const errorHandler = require("./handlers/error");
