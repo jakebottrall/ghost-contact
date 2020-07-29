@@ -1,8 +1,8 @@
 const axios = require("axios");
 
-async function verifyRecaptcha(key) {
+async function verifyRecaptcha({ secretKey, token }) {
   let verification = axios.post(
-    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${key}`,
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env[secretKey]}&response=${token}`,
     {},
     {
       headers: {

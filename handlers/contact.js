@@ -8,8 +8,8 @@ exports.contact = async function (req, res, next) {
   try {
     let verify = await verifyRecaptcha(req.body.reCaptcha);
     if (verify.data.success === true) {
-      const API_KEY = process.env[req.body.apiKey];
-      const DOMAIN = process.env[req.body.domain];
+      const API_KEY = process.env.MAILGUN_API_KEY;
+      const DOMAIN = process.env[req.body.mailgunDomain];
       const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
 
       const source = fs.readFileSync(
