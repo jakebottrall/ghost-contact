@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const errorHandler = require("./handlers/error");
 
 const contact = require("./routes/contact");
-app.use("/api", contact);
+app.use("/contact", contact);
 
 app.use((req, res, next) => {
   let err = new Error("Not Found");
