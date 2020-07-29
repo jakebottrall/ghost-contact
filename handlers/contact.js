@@ -22,18 +22,13 @@ exports.contact = async function (req, res, next) {
         name: req.body.name,
         email: req.body.email,
         message: req.body.message,
-        baseURL:
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:2368"
-            : req.body.baseURL,
+        baseUrl: req.body.baseUrl,
+        logoUrl: req.body.logoUrl,
       };
 
       const data = {
         from: `${req.body.name} <${req.body.email}>`,
-        to:
-          process.env.NODE_ENV === "development"
-            ? "jakebottrall@gmail.com"
-            : req.body.recipient,
+        to: req.body.recipient,
         subject: "Website Enquiry",
         html: template(templateData),
       };
