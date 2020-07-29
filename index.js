@@ -8,18 +8,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const errorHandler = require("./handlers/error");
-
 const contact = require("./routes/contact");
 app.use("/api", contact);
 
-app.use((req, res, next) => {
-  console.log(req);
-  let err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
-
+// error handler
+const errorHandler = require("./handlers/error");
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () =>
