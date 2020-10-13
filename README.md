@@ -1,7 +1,6 @@
 # ghost-contact
 
-This is a simple node.js api for submitting contact forms via `
-**[mailgun](https://app.mailgun.com/)** and using **google reCaptcha**. Mainly intended to be used with **[ghost](https://ghost.org/)** sites it can be adapted to most front end applications or cms'. It's also able to service multiple websites simultaneously.
+This is a simple node.js api for submitting contact forms via **[mailgun](https://app.mailgun.com/)** and using **google reCaptcha**. Mainly intended to be used with **[ghost](https://ghost.org/)** sites it can be adapted to most front end applications or cms'. It's also able to service multiple websites simultaneously.
 
 ## Download/Install
 
