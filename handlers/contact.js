@@ -1,8 +1,19 @@
 const fs = require("fs");
 const path = require("path");
-const mailgun = require("mailgun-js");
 const Handlebars = require("handlebars");
 const verifyRecaptcha = require("../services/reCaptcha");
+
+const formData = require("form-data");
+const Mailgun = require("mailgun.js");
+const mailgun = new Mailgun(formData);
+
+const { MAILGUN_PRIVATE_API_KEY, MAILGUN_PUBLIC_API_KEY } = process.env;
+
+const mg = mailgun.client({
+  username: "api",
+  key: MAILGUN_PRIVATE_API_KEY,
+  public_key: MAILGUN_PUBLIC_API_KEY,
+});
 
 exports.contact = async function (req, res, next) {
   try {
@@ -11,9 +22,7 @@ exports.contact = async function (req, res, next) {
 
     if (verify.data.success === true) {
       // grab relevant .env data
-      const API_KEY = process.env.MAILGUN_API_KEY;
       const DOMAIN = process.env[req.body.mailgunDomain];
-      const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
 
       // import html email template
       const source = fs.readFileSync(
@@ -32,7 +41,7 @@ exports.contact = async function (req, res, next) {
       };
 
       // create email
-      const data = {
+      const messageOptions = {
         from: `${req.body.name} <${req.body.email}>`,
         to: req.body.recipient,
         subject: "Website Enquiry",
@@ -40,7 +49,7 @@ exports.contact = async function (req, res, next) {
       };
 
       // send email to mailgun
-      await mg.messages().send(data);
+      await mg.messages.create(DOMAIN, messageOptions);
 
       return res.status(200).json({ message: "success" });
     } else {
